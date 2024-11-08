@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <div class="header-box">
+        <div class="title-box">
+            Pokedex
+        </div>
+        <div class="search-bar">
+            <input type="text" v-model="searchText" placeholder="Procure seu pokémon" class="search-field">
+        </div>
+    </div>
+
+    <div class="pokemon-over-container">
+        <div class="pokemon-container" ref="pokemonContainer">
+            <ul>
+                <li v-for="pokemon in filteredPokemons"
+                    :key="pokemon.id"
+                    class="pokemon-card"
+                    :style="getGradientClass(pokemon.types)"
+                    >
+                    <p>{{ pokemon.name}}</p>
+                        <div class="pokemon-img">
+                            <img :src="pokemon.sprites.other.showdown.front_default">
+                        </div>
+                        <div class="pokemons-types">
+                            <p class="text-type" :class="getTypeClass(pokemon.types[0].type.name)">{{pokemon.types[0].type.name}}</p>
+                            <p class="text-type" :class="getTypeClass(pokemon.types[1].type.name)" v-if="pokemon.types.length > 1">{{pokemon.types[1].type.name}}</p>
+                        </div>
+                </li>
+            </ul>
+            <div class="loading">
+                <h1 v-if="loading">Loading...</h1>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="index.js"></script>
